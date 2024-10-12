@@ -21,7 +21,9 @@
   {:else if $type === "prose"}
 
     {#await getBody(html) then html}
-      <Article {html} />
+      <Article>
+        {@html html}
+      </Article>
     {/await}
 
   {:else if $type === "code"}
