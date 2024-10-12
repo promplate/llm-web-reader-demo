@@ -52,6 +52,6 @@
   @apply b-(l-0.2em white/10 solid) pl-1em not-italic;
 }
 
-.prose p img {
-  @apply inline;
+.prose img {
+  @apply inline rounded;
 }
