@@ -3,34 +3,51 @@
   import Highlight from "$lib/Highlight.svelte"
   import Markdown from "$lib/Markdown.svelte"
   import { toMarkdown } from "$lib/utils/html2md"
+  import { responseToTextStream } from "$lib/utils/iter"
   import { read } from "$lib/utils/reader"
   import { queryParam } from "sveltekit-search-params"
 
   export let html: string
 
   $: cleanedHtml = read(html)!
-  $: md = toMarkdown(cleanedHtml)
+  $: readabilityResult = toMarkdown(cleanedHtml)
+
+  $: cleanedHtml && fetchLLMResult()
+
+  let llmResult: string
+
+  async function fetchLLMResult() {
+    llmResult = ""
+    const res = await fetch("/api/extract", { body: cleanedHtml, method: "POST" })
+    for await (const delta of responseToTextStream(res))
+      llmResult += delta
+  }
 
   // @ts-ignore
   const type = queryParam<"rendered" | "raw">("result", { defaultValue: "rendered" })
 
+  // @ts-ignore
+  const engine = queryParam <"readability" | "llm">("engine", { defaultValue: "llm" })
+
+  $: displayMarkdown = $engine === "readability" ? readabilityResult : llmResult
 </script>
 
 <section class="relative overflow-hidden">
 
   {#if $type === "rendered"}
 
-    <Markdown text={md} />
+    <Markdown text={displayMarkdown} />
 
   {:else if $type === "raw"}
 
     <div class="h-full w-full overflow-scroll px-3.5 py-3">
-      <Highlight source={md} lang="markdown" />
+      <Highlight source={displayMarkdown} lang="markdown" />
     </div>
 
   {/if}
 
   <div class="absolute bottom-5 z-1 flex flex-row gap-1.5 md:left-5 <md:(w-full justify-center)">
+    <ToggleGroup values={["llm", "readability"]} bind:choice={$engine} />
     <ToggleGroup values={["rendered", "raw"]} bind:choice={$type} />
   </div>
 
