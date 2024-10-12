@@ -1,0 +1,39 @@
+{
+  "name": "llm-web-reader",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build --sourcemap",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check",
+    "check:watch": "svelte-kit sync && svelte-check --watch",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "^5.1.1",
+    "@iconify/json": "^2.2.258",
+    "@sveltejs/adapter-auto": "^3.2.5",
+    "@sveltejs/kit": "^2.7.0",
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "@unocss/extractor-svelte": "^0.62.4",
+    "@unocss/reset": "^0.62.4",
+    "pyodide": "0.26.2",
+    "shiki": "^1.22.0",
+    "sk-seo": "^0.4.1",
+    "svelte": "^4.2.19",
+    "svelte-sonner": "^0.3.28",
+    "sveltekit-search-params": "^3.0.0",
+    "unocss": "^0.62.4",
+    "vite": "^5.4.8"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.27.3",
+    "@unocss/eslint-config": "^0.62.4",
+    "eslint": "^9.12.0",
+    "eslint-plugin-format": "^0.1.2",
+    "eslint-plugin-svelte": "^2.44.1",
+    "svelte-check": "^4.0.4"
+  }
+}
