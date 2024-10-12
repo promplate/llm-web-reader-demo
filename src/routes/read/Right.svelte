@@ -30,6 +30,8 @@
 
   {/if}
 
-  <ToggleGroup values={["rendered", "raw"]} bind:choice={$type} />
+  <div class="absolute bottom-5 z-1 flex flex-row gap-1.5 md:left-5 <md:(w-full justify-center)">
+    <ToggleGroup values={["rendered", "raw"]} bind:choice={$type} />
+  </div>
 
 </section>

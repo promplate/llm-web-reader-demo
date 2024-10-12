@@ -36,6 +36,8 @@
 
   {/if}
 
-  <ToggleGroup values={["iframe", "prose", "code"]} bind:choice={$type} />
+  <div class="absolute bottom-5 z-1 flex flex-row gap-1.5 md:right-5 <md:(w-full justify-center)">
+    <ToggleGroup values={["iframe", "prose", "code"]} bind:choice={$type} />
+  </div>
 
 </section>

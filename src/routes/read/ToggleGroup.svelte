@@ -3,7 +3,7 @@
   export let choice: (typeof values)[number]
 </script>
 
-<div class="absolute bottom-5 right-5 z-1 flex flex-row items-center gap-1 rounded-md bg-neutral-8 p-1 text-xs shadow-(md neutral-9/15)">
+<div class="flex flex-row items-center gap-1 rounded-md bg-neutral-8 p-1 text-xs shadow-(md neutral-9/15)">
   {#each values as id}
     <input tabindex="-1" type="radio" {id} class="sr-only" on:select={() => choice = id} checked={choice === id} />
     <button on:click={() => choice = id} class="rounded px-2 py-1 transition hover:bg-neutral-7" class:on={choice === id}>{id}</button>
