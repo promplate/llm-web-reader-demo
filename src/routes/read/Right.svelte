@@ -9,8 +9,8 @@
 
   export let html: string
 
-  $: cleanedHtml = read(html)!
-  $: readabilityResult = toMarkdown(cleanedHtml)
+  $: cleanedHtml = read(html)
+  $: readabilityResult = cleanedHtml && toMarkdown(cleanedHtml)
 
   $: cleanedHtml && fetchLLMResult()
 
@@ -29,21 +29,27 @@
   // @ts-ignore
   const engine = queryParam <"readability" | "llm">("engine", { defaultValue: "llm" })
 
-  $: displayMarkdown = $engine === "readability" ? readabilityResult : llmResult
+  $: displayMarkdown = $engine === "readability" ? readabilityResult! : llmResult
 </script>
 
 <section class="relative overflow-hidden">
 
-  {#if $type === "rendered"}
-
-    <Markdown text={displayMarkdown} />
-
-  {:else if $type === "raw"}
-
-    <div class="h-full w-full overflow-scroll px-3.5 py-3">
-      <Highlight source={displayMarkdown} lang="markdown" />
+  {#if !cleanedHtml}
+    <div class="h-full w-full center text-neutral-6">
+      empty :(
     </div>
+  {:else}
+    {#if $type === "rendered"}
 
+      <Markdown text={displayMarkdown} />
+
+    {:else if $type === "raw"}
+
+      <div class="h-full w-full overflow-scroll px-3.5 py-3">
+        <Highlight source={displayMarkdown} lang="markdown" />
+      </div>
+
+    {/if}
   {/if}
 
   <div class="absolute bottom-5 z-1 flex flex-row gap-1.5 md:left-5 <md:(w-full justify-center)">
