@@ -2,6 +2,7 @@
   import Left from "./Left.svelte"
   import Right from "./Right.svelte"
   import { browser } from "$app/environment"
+  import { toast } from "svelte-sonner"
   import { queryParam } from "sveltekit-search-params"
 
   // @ts-ignore
@@ -17,7 +18,11 @@
   <div class="h-[calc(100vh-5.25rem)] w-full flex flex-col gap-3 [&>*]:(h-full w-full rounded bg-neutral-8/50) md:flex-row">
     {#if $url && browser}
 
-      {#await fetch(`?url=${$url}`).then(res => res.text())}
+      {#await fetch(`?url=${$url}`).then(res => {
+        if (!res.ok)
+          toast.warning(`${res.status} ${res.statusText}`)
+        return res.text()
+      })}
         <section class="center">
           <div class="i-svg-spinners-90-ring-with-bg" />
         </section>
@@ -28,6 +33,8 @@
         <Left url={$url} {html} />
         <Right {html} />
       {:catch error}
+        <!-- eslint-disable-next-line no-unused-vars -->
+        {@const _ = toast.error(String(error))}
         <div class="center text-red">
           {error.message}
         </div>
