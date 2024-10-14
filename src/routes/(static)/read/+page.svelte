@@ -18,7 +18,7 @@
   <div class="h-[calc(100vh-5.25rem)] w-full flex flex-col gap-3 [&>*]:(h-full w-full rounded bg-neutral-8/50) md:flex-row">
     {#if $url && browser}
 
-      {#await fetch(`?url=${$url}`).then(res => {
+      {#await fetch(`/api/proxy?url=${$url}`).then(res => {
         if (!res.ok)
           toast.warning(`${res.status} ${res.statusText}`)
         return res.text()

@@ -13,3 +13,5 @@ export const GET: RequestHandler = async ({ fetch, url: { searchParams }, reques
 
   return text(html)
 }
+
+export const config = { runtime: "edge" }
