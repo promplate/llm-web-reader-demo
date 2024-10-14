@@ -1,4 +1,4 @@
-const excludeRequestHeaders = ["authorization", "host", "origin", "cookie"]
+const excludeRequestHeaders = ["authorization", "host", "origin", "cookie", "accept-encoding"]
 
 export function forwardRequestHeaders(headersIn: Headers) {
   const headers = new Headers()
