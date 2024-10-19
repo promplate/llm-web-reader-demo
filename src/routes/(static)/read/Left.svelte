@@ -20,18 +20,14 @@
 
   {:else if $type === "prose"}
 
-    {#await getBody(html) then html}
-      <Article>
-        {@html html}
-      </Article>
-    {/await}
+    <Article>
+      {@html getBody(html)}
+    </Article>
 
   {:else if $type === "code"}
 
     <div class="h-full w-full overflow-scroll px-3.5 py-3">
-      {#await getBody(html) then html}
-        <Highlight source={html} lang="html" />
-      {/await}
+      <Highlight source={getBody(html)} lang="html" />
     </div>
 
   {/if}
