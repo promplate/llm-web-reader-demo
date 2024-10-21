@@ -2,6 +2,7 @@
   import ToggleGroup from "./ToggleGroup.svelte"
   import Highlight from "$lib/Highlight.svelte"
   import Markdown from "$lib/Markdown.svelte"
+  import { copy } from "$lib/utils/copy"
   import { toMarkdown } from "$lib/utils/html2md"
   import { responseToTextStream } from "$lib/utils/iter"
   import { read } from "$lib/utils/reader"
@@ -55,6 +56,9 @@
   <div class="absolute bottom-5 z-1 flex flex-row gap-1.5 md:left-5 <md:(w-full justify-center)">
     <ToggleGroup values={["llm", "readability"]} bind:choice={$engine} />
     <ToggleGroup values={["rendered", "raw"]} bind:choice={$type} />
+    <button on:click={() => copy(displayMarkdown)} class="rounded-md bg-neutral-8 p-2 shadow-(md neutral-9/15) transition hover:bg-neutral-7">
+      <div class="i-ri-file-copy-line" />
+    </button>
   </div>
 
 </section>
