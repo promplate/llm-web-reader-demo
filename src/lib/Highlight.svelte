@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Hast from "./Hast.svelte"
   import { getHighlighter } from "./utils/highlight"
   import { type BundledLanguage } from "shiki"
 
@@ -14,10 +15,10 @@
     {#await highlighter}
       <pre>{source}</pre>
     {:then highlight}
-      {@html highlight(source)}
+      <Hast hast={highlight(source)} />
     {/await}
   {:else}
-    {@html highlighter(source)}
+    <Hast hast={highlighter(source)} />
   {/if}
 
 </code>
