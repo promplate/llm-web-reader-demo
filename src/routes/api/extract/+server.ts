@@ -19,10 +19,13 @@ async function * extract(html: string, markdown: string) {
     prediction: { type: "content", content: markdown },
     stream_options: { include_usage: true },
   })) {
-    chunk.usage && console.error(chunk.usage)
-    const delta = chunk.choices[0].delta.content
-    if (delta)
-      yield delta
+    if (chunk.usage) {
+      chunk.usage && console.error(chunk.usage)
+    } else {
+      const delta = chunk.choices[0].delta.content
+      if (delta)
+        yield delta
+    }
   }
 }
 
