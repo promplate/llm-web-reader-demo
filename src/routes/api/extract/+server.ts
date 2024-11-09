@@ -2,6 +2,7 @@ import type { RequestHandler } from "./$types"
 
 import { systemPrompt } from "./prompt"
 import { error } from "@sveltejs/kit"
+import { toMarkdown } from "$lib/utils/html2md"
 import { iteratorToStream } from "$lib/utils/stream"
 import { OpenAI } from "openai"
 
@@ -16,7 +17,10 @@ async function * extract(html: string) {
     ],
     stream: true,
     temperature: 0,
+    prediction: { type: "content", content: toMarkdown(html).trim() },
+    stream_options: { include_usage: true },
   })) {
+    chunk.usage && console.error(chunk.usage)
     const delta = chunk.choices[0].delta.content
     if (delta)
       yield delta
