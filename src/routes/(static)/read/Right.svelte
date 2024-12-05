@@ -8,9 +8,10 @@
   import { read } from "$lib/utils/reader"
   import { queryParam } from "sveltekit-search-params"
 
+  export let url: string
   export let html: string
 
-  $: cleanedHtml = read(html)
+  $: cleanedHtml = read(html, url)
   $: readabilityResult = cleanedHtml && toMarkdown(cleanedHtml)
 
   $: cleanedHtml && fetchLLMResult()
