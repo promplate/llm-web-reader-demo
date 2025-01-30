@@ -1,6 +1,6 @@
 <script lang="ts">
   import Article from "./Article.svelte"
-  import SvelteMarkdown from "svelte-markdown"
+  import SvelteMarkdown from "@humanspeak/svelte-markdown"
 
   const { text }: { text: string } = $props()
 </script>
