@@ -33,10 +33,8 @@
         <Left url={$url} {html} />
         <Right url={$url} {html} />
       {:catch error}
-        <!-- eslint-disable-next-line no-unused-vars -->
-        {@const _ = toast.error(String(error))}
         <div class="center text-red">
-          {error.message}
+          {(toast.error(String(error)), error).message}
         </div>
       {/await}
 
