@@ -1,6 +1,7 @@
 <script lang="ts">
+  import type { BundledLanguage } from "shiki"
+
   import { getHighlighter } from "./utils/highlight"
-  import { type BundledLanguage } from "shiki"
 
   const { source, lang }: { source: string, lang: BundledLanguage } = $props()
 
