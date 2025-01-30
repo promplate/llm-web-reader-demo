@@ -2,8 +2,7 @@
   import { getHighlighter } from "./utils/highlight"
   import { type BundledLanguage } from "shiki"
 
-  export let source: string
-  export let lang: BundledLanguage
+  const { source, lang }: { source: string, lang: BundledLanguage } = $props()
 
   const highlighter = getHighlighter(lang) as unknown as ReturnType<typeof getHighlighter> | Awaited<ReturnType<typeof getHighlighter>>
 </script>

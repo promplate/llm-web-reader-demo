@@ -1,12 +1,13 @@
 <script lang="ts">
+  import type { Props } from "./types"
+
   import ToggleGroup from "./ToggleGroup.svelte"
   import Article from "$lib/Article.svelte"
   import Highlight from "$lib/Highlight.svelte"
   import { getBody } from "$lib/utils/html"
   import { queryParam } from "sveltekit-search-params"
 
-  export let url: string
-  export let html: string
+  const { url, html }: Props = $props()
 
   // @ts-ignore
   const type = queryParam<"iframe" | "prose" | "code">("preview", { defaultValue: "iframe" })
@@ -16,7 +17,7 @@
 
   {#if $type === "iframe"}
 
-    <iframe class="h-full w-full bg-white" srcdoc={html.replace("<head>", `<head><base href="${url}">`)} title="preview" />
+    <iframe class="h-full w-full bg-white" srcdoc={html.replace("<head>", `<head><base href="${url}">`)} title="preview"></iframe>
 
   {:else if $type === "prose"}
 

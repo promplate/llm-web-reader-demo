@@ -11,7 +11,7 @@
 
 <div class="m-4 flex flex-col items-center gap-3">
   <section class="max-w-lg w-full flex flex-row items-center gap-2 rounded bg-neutral-8/50 px-2.5 py-2 ring-(neutral-5 inset) transition-shadow focus-within:ring-1.2">
-    <div class="i-mingcute-search-line text-neutral-5" />
+    <div class="i-mingcute-search-line text-neutral-5"></div>
     <input class="w-full bg-transparent text-sm font-mono outline-none placeholder-neutral-6" type="url" bind:value={$url} placeholder="any http url" data-sveltekit-keepfocus>
   </section>
 
@@ -24,10 +24,10 @@
         return res.text()
       })}
         <section class="center">
-          <div class="i-svg-spinners-90-ring-with-bg" />
+          <div class="i-svg-spinners-90-ring-with-bg"></div>
         </section>
         <section class="center">
-          <div class="i-svg-spinners-90-ring-with-bg" />
+          <div class="i-svg-spinners-90-ring-with-bg"></div>
         </section>
       {:then html}
         <Left url={$url} {html} />

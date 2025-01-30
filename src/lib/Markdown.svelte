@@ -2,7 +2,7 @@
   import Article from "./Article.svelte"
   import SvelteMarkdown from "svelte-markdown"
 
-  export let text: string
+  const { text }: { text: string } = $props()
 </script>
 
 <Article>

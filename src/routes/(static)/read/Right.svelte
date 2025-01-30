@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Props } from "./types"
+
   import ToggleGroup from "./ToggleGroup.svelte"
   import Highlight from "$lib/Highlight.svelte"
   import Markdown from "$lib/Markdown.svelte"
@@ -8,15 +10,10 @@
   import { read } from "$lib/utils/reader"
   import { queryParam } from "sveltekit-search-params"
 
-  export let url: string
-  export let html: string
+  const { url, html }: Props = $props()
+  const cleanedHtml = $derived(read(html, url))
 
-  $: cleanedHtml = read(html, url)
-  $: readabilityResult = cleanedHtml && toMarkdown(cleanedHtml)
-
-  $: cleanedHtml && fetchLLMResult()
-
-  let llmResult: string
+  let llmResult = $state<string>()
 
   async function fetchLLMResult() {
     llmResult = ""
@@ -31,7 +28,11 @@
   // @ts-ignore
   const engine = queryParam <"readability" | "llm">("engine", { defaultValue: "llm" })
 
-  $: displayMarkdown = $engine === "readability" ? readabilityResult! : llmResult
+  const readabilityResult = $derived(cleanedHtml && toMarkdown(cleanedHtml))
+  $effect(() => {
+    cleanedHtml && fetchLLMResult()
+  })
+  const displayMarkdown = $derived($engine === "readability" ? readabilityResult! : llmResult!)
 </script>
 
 <section class="relative overflow-hidden">
@@ -57,8 +58,8 @@
   <div class="absolute bottom-5 z-1 flex flex-row gap-1.5 md:left-5 <md:(w-full justify-center)">
     <ToggleGroup values={["llm", "readability"]} bind:choice={$engine} />
     <ToggleGroup values={["rendered", "raw"]} bind:choice={$type} />
-    <button on:click={() => copy(displayMarkdown)} class="rounded-md bg-neutral-8 p-2 shadow-(md neutral-9/15) transition hover:bg-neutral-7">
-      <div class="i-ri-file-copy-line" />
+    <button onclick={() => copy(displayMarkdown)} class="rounded-md bg-neutral-8 p-2 shadow-(md neutral-9/15) transition hover:bg-neutral-7" aria-label="Copy to clipboard">
+      <div class="i-ri-file-copy-line"></div>
     </button>
   </div>
 

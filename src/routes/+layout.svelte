@@ -1,10 +1,14 @@
-<script>
+<script lang="ts">
+  import type { Snippet } from "svelte"
+
   import "@fontsource-variable/jetbrains-mono"
   import "@unocss/reset/tailwind.css"
   import "uno.css"
 
   import Seo from "sk-seo"
   import { Toaster } from "svelte-sonner"
+
+  const { children }: { children?: Snippet } = $props()
 </script>
 
 <Seo
@@ -14,7 +18,7 @@
 
 <Toaster theme="dark" toastOptions={{ class: "text-xs font-mono" }} />
 
-<slot />
+{@render children?.()}
 
 <style>
   :global(html) {
