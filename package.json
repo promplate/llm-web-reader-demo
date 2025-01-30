@@ -37,7 +37,7 @@
     "@types/turndown": "^5.0.5",
     "@unocss/eslint-config": "^65.4.3",
     "eslint": "^9.12.0",
-    "eslint-plugin-format": "^0.1.2",
+    "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-svelte": "^2.45.1",
     "svelte-check": "^4.0.5"
   }
